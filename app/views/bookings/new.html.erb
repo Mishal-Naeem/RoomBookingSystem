@@ -1,0 +1,36 @@
+<h1>Create a Booking for <%= @user.email %></h1>
+
+<%= form_with model: @booking, url: user_bookings_path(@user), local: true do |form| %>
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+      <ul>
+        <% @booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.datetime_local_field :start_time, value: (@booking.start_time || Time.now.utc).strftime('%Y-%m-%dT%H:%M') %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.datetime_local_field :end_time, value: (@booking.end_time || Time.now.utc).strftime('%Y-%m-%dT%H:%M') %>
+  </div>
+
+  <h3>Select Rooms:</h3>
+  <% @rooms.each do |room| %>
+    <div class="field">
+      <%= check_box_tag "room_ids[]", room.id %>
+      <%= room.name %> (Capacity: <%= room.capacity %>, Price per hour: <%= number_to_currency(room.price_per_hour) %>)
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit "Book Rooms" %>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+<div class="container text-center mt-5">
+  <h1 class="display-4 mb-4">Welcome to Room Booking System</h1>
+  <p class="lead mb-5">
+    Book premium rooms at your convenience. Sign in to manage your bookings or create a new account to get started.
+  </p>
+
+  <% if user_signed_in? %>
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to 'Go to My Bookings', user_bookings_path(current_user), class: 'btn btn-success btn-lg' %>
+      <%= link_to 'Sign Out', custom_sign_out_path, method: :delete, class: 'btn btn-danger btn-lg' %>
+
+    </div>
+  <% else %>
+    <div class="d-flex justify-content-center gap-3">
+      <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-primary btn-lg', data: { turbo: false } %>
+      <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-outline-primary btn-lg', data: { turbo: false } %>
+    </div>
+  <% end %>
+</div>

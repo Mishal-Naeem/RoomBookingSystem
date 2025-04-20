@@ -1,0 +1,10 @@
+<h1>Available Rooms</h1>
+
+<% @rooms.each do |room| %>
+  <div>
+    <h3><%= room.name %></h3>
+    <p>Capacity: <%= room.capacity %></p>
+    <p>Price per hour: <%= number_to_currency(room.price_per_hour) %></p>
+    <p><%= room.active ? 'Available' : 'Not available' %></p>
+  </div>
+<% end %>
